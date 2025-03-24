@@ -1,2 +1,2 @@
 # Jogo-de-advinhacao
-Jogo escrito em python.
+Jogo de advinhar numeros escrito em python.
