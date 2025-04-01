@@ -5,7 +5,7 @@ iniciarJogo = True
 while iniciarJogo:
     print("-------------------------------------------------")
     print("BEM VINDO AO JOGO DE ADIVINHAÇÃO!")
-    print("Eu pensei em um número aleatório de 4 dígitos. Tente adivinhar!")
+    print("Eu pensei em um número aleatório de 4 dígitos, tente adivinhar!")
     print("Você tem 10 tentativas para acertar o número.")
     print("-------------------------------------------------")
 
@@ -50,76 +50,98 @@ while iniciarJogo:
             print("DICAS:")
 
             # Verifica a existencia de digitos iguais
-            if (
-                (unidade == dezena or unidade == centena or unidade == milhar) or
-                (dezena == centena or dezena == milhar) or
-                (centena == milhar)
-            ):
-                print("\t==> Há números repetidos na chave!")
-            
-            # Verifica cada dígito individualmente para exibir as dicas
+            if tentativas <= 5:
+                if (
+                    (unidade == dezena or unidade == centena or unidade == milhar) or
+                    (dezena == centena or dezena == milhar) or
+                    (centena == milhar)
+                ):
+                    print("\t=>HÁ números repetidos na chave!")
+                else:
+                    print("\t=>NÃO HÁ números repetidos na chave!")
 
+            # Verifica cada dígito individualmente para exibir as dicas
             if not isMilharCorreto:
                 chaveParcial += "_"
+
+                # Verifica se o milhar é maior que 5
+                if tentativas <= 5:
+                    if milhar > 5:
+                        print(f"\t=>O primeiro número é MAIOR que 5!")
+                    else:
+                        print(f"\t=>O primeiro número é MENOR que 5!")
 
                 if (
                     milharTentativa == unidade or
                     milharTentativa == dezena  or
                     milharTentativa == centena
                 ):
-                    print(f"\t==> O número {milharTentativa} está na chave, mas na posição errada.")
-                else:
-                    print(f"\t==> O número {milharTentativa} não está na chave.")
+                    print(f"\t=>O número {milharTentativa} está na chave, mas na posição errada.")
             else:
                 chaveParcial += f"{milharTentativa}"
 
             if not isCentenaCorreta:
                 chaveParcial += "_"
 
+                # Verifica se a centena é par
+                if tentativas <= 5:
+                    if centena % 2 == 0:
+                        print("\t=>O segundo número é PAR!")
+                    else:
+                        print("\t=>O segundo número é ÍMPAR!")
+
                 if (
                     centenaTentativa == unidade or
                     centenaTentativa == dezena  or
                     centenaTentativa == milhar
                 ):
-                    print(f"\t==> O número {centenaTentativa} está na chave, mas na posição errada.")
-                else:
-                    print(f"\t==> O número {centenaTentativa} não está na chave.")
+                    print(f"\t=>O número {centenaTentativa} está na chave, mas na posição errada.")
             else:
                 chaveParcial += f"{centenaTentativa}"
 
             if not isDezenaCorreta:
                 chaveParcial += "_"
 
+                # Verifica se a dezena é maior que 5
+                if tentativas <= 5:
+                    if dezena > 5:
+                        print(f"\t=>O terceiro número é MAIOR que 5!")
+                    else:
+                        print(f"\t=>O terceiro número é MENOR que 5!")
+
                 if (
                     dezenaTentativa == unidade or
                     dezenaTentativa == centena or
                     dezenaTentativa == milhar
                 ):
-                    print(f"\t==> O número {dezenaTentativa} está na chave, mas na posição errada.")
-                else:
-                    print(f"\t==> O número {dezenaTentativa} não está na chave.")
+                    print(f"\t=>O número {dezenaTentativa} está na chave, mas na posição errada.")
             else:
                 chaveParcial += f"{dezenaTentativa}"
 
             if not isUnidadeCorreta:
                 chaveParcial += "_"
 
+                # Verifica se a unidade é par ou ímpar
+                if tentativas <= 5:
+                    if unidade % 2 == 0:
+                        print("\t=>O ultimo número é PAR!")
+                    else:
+                        print("\t=>O ultimo número é ÍMPAR!")
+                
                 if (
                     unidadeTentativa == milhar or 
                     unidadeTentativa == centena or 
                     unidadeTentativa == dezena
                 ):
-                    print(f"\t==> O número {unidadeTentativa} está na chave, mas na posição errada.")
-
-                else:
-                    print(f"\t==> O número {unidadeTentativa} não está na chave.")
+                    print(f"\t=>O número {unidadeTentativa} está na chave, mas na posição errada.")
             else:
                 chaveParcial += f"{unidadeTentativa}"
 
             # --- FIM DAS VERIFICAÇÕES DE DÍGITO ---
 
-            print(f"Você ainda tem {tentativas} tentativas!")
-            print(f"A chave parcial é: {chaveParcial}")
+            if tentativas > 0:
+                print(f"Você ainda tem {tentativas} tentativas!")
+                print(f"A chave parcial é: {chaveParcial}")
 
         else:
             print("-------------------------------------------------")
@@ -127,7 +149,8 @@ while iniciarJogo:
 
             tentativas = 0
         
-    print("Fim de jogo!")
+    print("-------------------------------------------------")
+    print("Fim de jogo! Você não acertou o número.")
     print(f"O número era {chave}.")
     print("-------------------------------------------------")
 
