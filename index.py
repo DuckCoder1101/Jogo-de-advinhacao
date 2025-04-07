@@ -11,35 +11,33 @@ while iniciarJogo:
 
     input("Digite alguma coisa para começar...")
 
-    # Gera um número aleatório de 4 dígitos
     chave = random.randrange(1000, 9999)
 
-    # Separa as casas decimais do número gerado
     milhar = chave // 1000
     centena = (chave // 100) % 10
     dezena = (chave // 10) % 10
     unidade = chave % 10
 
-    # Loop de tentativas
     tentativas = 10
     while tentativas > 0:
         tentativas -= 1
 
         print("-------------------------------------------------")
 
-        # Recebe a tentativa do usuário
         tentativa = int(input("Digite um número de 4 dígitos: "))
 
-        # Separa as casas decimais da tentativa
         milharTentativa = tentativa // 1000
         centenaTentativa = (tentativa // 100) % 10
         dezenaTentativa = (tentativa // 10) % 10
         unidadeTentativa = tentativa % 10
 
-        # Verifica se a tentativa é igual à chave
+        milharCorrigido = milhar
+        centenaCorrigido = centena
+        dezenaCorrigido = dezena
+        unidadeCorrigido = unidade
+
         if tentativa != chave:
 
-            # Cria uma variável booleana para cada dígito
             isUnidadeCorreta = unidade == unidadeTentativa
             isDezenaCorreta = dezena == dezenaTentativa
             isCentenaCorreta = centena == centenaTentativa
@@ -47,25 +45,15 @@ while iniciarJogo:
 
             chaveParcial = ""
 
-            print("DICAS:")
+            print("DICA:")
+            jaTemDica = False
 
-            # Verifica a existencia de digitos iguais
-            if tentativas <= 5:
-                if (
-                    (unidade == dezena or unidade == centena or unidade == milhar) or
-                    (dezena == centena or dezena == milhar) or
-                    (centena == milhar)
-                ):
-                    print("\t=>HÁ números repetidos na chave!")
-                else:
-                    print("\t=>NÃO HÁ números repetidos na chave!")
-
-            # Verifica cada dígito individualmente para exibir as dicas
             if not isMilharCorreto:
-                chaveParcial += "_"
+                milharCorrigido = "_"
 
-                # Verifica se o milhar é maior que 5
-                if tentativas <= 5:
+                if tentativas <= 5 and not jaTemDica:
+                    jaTemDica = True
+
                     if milhar > 5:
                         print(f"\t=>O primeiro número é MAIOR que 5!")
                     else:
@@ -77,14 +65,13 @@ while iniciarJogo:
                     milharTentativa == centena
                 ):
                     print(f"\t=>O número {milharTentativa} está na chave, mas na posição errada.")
-            else:
-                chaveParcial += f"{milharTentativa}"
 
             if not isCentenaCorreta:
-                chaveParcial += "_"
+                centenaCorrigido = "_"
 
-                # Verifica se a centena é par
-                if tentativas <= 5:
+                if tentativas <= 5 and not jaTemDica:
+                    jaTemDica = True
+                    
                     if centena % 2 == 0:
                         print("\t=>O segundo número é PAR!")
                     else:
@@ -96,14 +83,13 @@ while iniciarJogo:
                     centenaTentativa == milhar
                 ):
                     print(f"\t=>O número {centenaTentativa} está na chave, mas na posição errada.")
-            else:
-                chaveParcial += f"{centenaTentativa}"
 
             if not isDezenaCorreta:
-                chaveParcial += "_"
+                dezenaCorrigido = "_"
 
-                # Verifica se a dezena é maior que 5
-                if tentativas <= 5:
+                if tentativas <= 5 and not jaTemDica:
+                    jaTemDica = True
+
                     if dezena > 5:
                         print(f"\t=>O terceiro número é MAIOR que 5!")
                     else:
@@ -115,14 +101,13 @@ while iniciarJogo:
                     dezenaTentativa == milhar
                 ):
                     print(f"\t=>O número {dezenaTentativa} está na chave, mas na posição errada.")
-            else:
-                chaveParcial += f"{dezenaTentativa}"
 
             if not isUnidadeCorreta:
-                chaveParcial += "_"
+                unidadeCorrigido = "_"
 
-                # Verifica se a unidade é par ou ímpar
-                if tentativas <= 5:
+                if tentativas <= 5 and not jaTemDica:
+                    jaTemDica = True
+                    
                     if unidade % 2 == 0:
                         print("\t=>O ultimo número é PAR!")
                     else:
@@ -134,14 +119,10 @@ while iniciarJogo:
                     unidadeTentativa == dezena
                 ):
                     print(f"\t=>O número {unidadeTentativa} está na chave, mas na posição errada.")
-            else:
-                chaveParcial += f"{unidadeTentativa}"
-
-            # --- FIM DAS VERIFICAÇÕES DE DÍGITO ---
 
             if tentativas > 0:
                 print(f"Você ainda tem {tentativas} tentativas!")
-                print(f"A chave parcial é: {chaveParcial}")
+                print(f"A chave parcial é: {milharCorrigido}{centenaCorrigido}{dezenaCorrigido}{unidadeCorrigido}")
 
         else:
             print("-------------------------------------------------")
