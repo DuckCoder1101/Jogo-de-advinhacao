@@ -11,7 +11,7 @@ while iniciarJogo:
 
     input("Digite alguma coisa para começar...")
 
-    chave = random.randrange(1000, 9999)
+    chave = random.randrange(1000, 10000)
 
     milhar = chave // 1000
     centena = (chave // 100) % 10
