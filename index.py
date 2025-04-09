@@ -122,14 +122,15 @@ while iniciarJogo:
 
                 if isUnidadeCorreta: print(unidade)
                 else: print("_")
+            else:
+                print("-------------------------------------------------")
+                print("Fim de jogo! Você não acertou o número!")
         else:
             print("-------------------------------------------------")
             print(f"Parabéns! Você acertou o número com {10 - tentativas} tentativas!")
 
             tentativas = 0
         
-    print("-------------------------------------------------")
-    print("Fim de jogo! Você não acertou o número.")
     print(f"O número era {chave}.")
     print("-------------------------------------------------")
 
